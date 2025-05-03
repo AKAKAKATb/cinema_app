@@ -80,7 +80,7 @@ $stmt->bind_param("ssss", $username, $email, $passwordHash, $birth_date);  // П
 if ($stmt->execute()) {
    $newUserId = $conn->insert_id; // Получаем ID новой записи
    setcookie('userid', $newUserId, time() + 60*60*24*7, '/');
-   echo json_encode(['status' => 'success', 'message' => 'Пользователь успешно зарегистрирован. id - '. $newUserId]);
+   echo json_encode(['status' => 'success', 'message' => 'Пользователь успешно зарегистрирован.']);
 } else {
    echo json_encode(['status' => 'error', 'message' => 'Ошибка при добавлении пользователя: ' . $stmt->error]);
 }

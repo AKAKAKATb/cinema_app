@@ -5,8 +5,10 @@ header('Access-Control-Allow-Methods: GET');  // Разрешенные мето
 header('Access-Control-Allow-Headers: Content-Type');
 
 if(empty($_COOKIE['userid'])){
-    echo json_encode(['status' => 'error', 'message' => 'Войдите в аккаунт!']);
+    echo json_encode(['status' => 'error', 'message' => 'Пользователь не авторизован.']);
     exit;
+} else {
+    $user_id = $_COOKIE['userid'];
 }
 
 $stmt = $conn->prepare(
@@ -16,7 +18,6 @@ $stmt->execute();
 $result = $stmt->get_result(); // Получаем результат как mysqli_result
 $movies = $result->fetch_all(MYSQLI_ASSOC); // Получаем все строки как ассоциативный массив
 
-$user_id = $_COOKIE['userid'];
 
 $stmt = $conn->prepare(
     "SELECT movie_id FROM rentals where user_id = ?");
