@@ -5,6 +5,11 @@ header('Access-Control-Allow-Methods: POST');  // Разрешенные мет�
 header('Access-Control-Allow-Headers: Content-Type');
 header('Content-Type: application/json');
 
+if (!empty($_COOKIE['userid'])) {
+    // Куки не существует или пустое значение
+    echo json_encode(['status' => 'success', 'message' => 'Вход по cookie']);
+    exit;
+}
 
 $response = ['status' => 'error', 'message' => 'Неверный логин или пароль!'];
 $data = json_decode(file_get_contents("php://input"));
